@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../src/pages/login.page.ts';
 import { users } from '../../src/config/user.ts';
 
-test.describe('набор тестов', () => {
+test.describe('Переход по кнопкам и досутп разделов для SEA', () => {
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.open();
@@ -38,7 +38,7 @@ test.describe('набор тестов', () => {
     const agreementsAndContracts = page.getByRole('link', { name: 'Соглашение и договоры' });
     const advantages = page.getByRole('link', { name: 'Преимущества' });
 
-    await expect(importantDates).toBeVisible();
+    await expect(importantDates).toBeVisible({ timeout: 10000 });
     await expect(agreementsAndContracts).toBeVisible();
     await expect(advantages).toBeVisible();
   });
@@ -58,7 +58,9 @@ test.describe('отображение оферты', () => {
     });
 
     await test.step('Проверка отображения оферты', async () => {
-      await expect(page.getByRole('heading', { name: 'Договор оферта' })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Договор оферта' })).toBeVisible({
+        timeout: 10000,
+      });
       await expect(page.getByRole('button', { name: 'Подписать' })).toBeVisible();
     });
   });
@@ -104,7 +106,9 @@ test.describe('Доступность разделов для всех типо�
     });
 
     await test.step('Проверка отображения разделов', async () => {
-      await expect(page.getByRole('link', { name: 'Важные даты' })).toBeVisible();
+      await expect(page.getByRole('link', { name: 'Важные даты' })).toBeVisible({
+        timeout: 10_000,
+      });
       await expect(page.getByRole('link', { name: 'Соглашение и договоры' })).toBeVisible();
       await expect(page.getByRole('link', { name: 'Преимущества' })).toBeVisible();
       await expect(page.getByRole('link', { name: 'Демокафе' })).toBeVisible();

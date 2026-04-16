@@ -22,16 +22,20 @@ export class LoginPage {
   }
 
   async open() {
-    await this.page.goto(
-      'https://sea.softline.com.khoroshunovet.stage.slweb.cloud/licensing-center/',
-    );
+    await this.page.goto('https://lk.softline.ru.khoroshunovet.stage.slweb.cloud');
   }
 
   async login(username: string, password: string) {
     await this.usernameInput().fill(username);
     await this.passwordInput().fill(password);
     await this.loginButton().click();
-    await this.skipButton().click();
+
+    const skipButton = this.skipButton();
+
+    await skipButton
+      .waitFor({ state: 'visible', timeout: 3000 })
+      .then(() => skipButton.click())
+      .catch(() => {}); // если нет — просто идём дальше
   }
 
   // проверка успешного входа

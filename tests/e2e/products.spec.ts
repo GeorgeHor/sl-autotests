@@ -54,7 +54,7 @@ test.describe('Проверка раздела "Продукты"', () => {
     });
 
     await test.step('Выбрать тип продукта из выпадающего списка', async () => {
-      await productsPage.selectProductType('Оборудование');
+      await productsPage.selectProductType('ПО');
     });
 
     await test.step('Проверить, что продукт отображается в результатах поиска', async () => {

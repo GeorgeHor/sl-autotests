@@ -25,7 +25,10 @@ export class ProductsPage {
   // выбор Типа продукта из выпадающего списка
   async selectProductType(productType: string) {
     await this.page.getByRole('textbox', { name: 'Тип продукта' }).click();
-    await this.page.locator('label').filter({ hasText: 'Оборудование' }).click();
+    // выбор продукта по тексту, так как в селекте нет атрибута value, а текст может отличаться от значения в БД
+    await this.page.locator('label').filter({ hasText: productType }).click();
+
+    // await this.page.locator('label').filter({ hasText: 'ПО' }).click();
     // клик вне фильтра для снятия фокуса с поля
     await this.page.getByPlaceholder('Поиск по названию продукта').click();
   }
